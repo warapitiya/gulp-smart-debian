@@ -1,5 +1,7 @@
 <p align="center">
- <h1>gulp-smart-debian</h1>
+	gulp-smart-debian
+</p>
+<p align="center">
   Fork from <a href='https://github.com/stpettersens/gulp-debian'>gulp-debian</a>, But support `gulp 4` and `upto-date`.
 </p>
 ##### Install
