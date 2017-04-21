@@ -4,6 +4,7 @@
 <p align="center">
   Fork from <a href='https://github.com/stpettersens/gulp-debian'>gulp-debian</a>, But support `gulp 4` and `upto-date`.
 </p>
+
 ##### Install
 
     $ yarn add gulp-smart-debian -D
@@ -103,7 +104,7 @@ function task() {
 
 ##### Contributors
 
-* [Malindu Warapitiya](https://github.com/stpettersens)
+* [Malindu Warapitiya](https://github.com/warapitiya)
 
 ##### Original Repo
 * [gulp-debian](https://github.com/stpettersens/gulp-debian)
