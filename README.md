@@ -1,14 +1,10 @@
-### gulp-debian
-> :tropical_drink: Gulp plug-in to create a Debian package.
-
-[![Build Status](https://travis-ci.org/stpettersens/gulp-debian.png?branch=master)](https://travis-ci.org/stpettersens/gulp-debian)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
-[![npm version](https://badge.fury.io/js/gulp-debian.svg)](http://npmjs.com/package/gulp-debian)
-[![Dependency Status](https://david-dm.org/stpettersens/gulp-debian.png?theme=shields.io)](https://david-dm.org/stpettersens/gulp-debian) [![Development Dependency Status](https://david-dm.org/stpettersens/gulp-debian/dev-status.png?theme=shields.io)](https://david-dm.org/stpettersens/gulp-debian?type=dev)
-
+<p align="center">
+ <h1>gulp-smart-debian</h1>
+  Fork from <a href='https://github.com/stpettersens/gulp-debian'>gulp-debian</a>, But support `gulp 4` and `upto-date`.
+</p>
 ##### Install
 
-    $ npm install --save-dev gulp-debian
+    $ yarn add gulp-smart-debian -D
 
 ##### Usage
 
@@ -18,55 +14,57 @@ Define package in-line:
 'use strict'
 
 const gulp = require('gulp')
-const deb = require('gulp-debian')
+const deb = require('gulp-smart-debian')
 
-gulp.task('default', function () {
-  return gulp.src(['demo.sh','blob.bin'])
-  .pipe(deb({
-    package: 'demo',
-    version: '0.1-2',
-    section: 'base',
-    priority: 'optional',
-    architecture: 'i386',
-    maintainer: 'Mr. Apt <apt@nowhere.tld>',
-    description: 'A dummy package',
-    preinst: [ 'echo "hello from dummy package"' ],
-    postinst: [ 'cat -n /opt/demo/.npmignore' ],
-    changelog: [
-      {
+function createDebTask() {
+    return gulp.src(['demo.sh','blob.bin'])
+      .pipe(deb({
+        package: 'demo',
         version: '0.1-2',
-        distribution: 'unstable',
-        urgency: 'low',
-        date: new Date('2016-12-24T12:40:10'),
-        changes: [
-          'Added another feature.',
-          'Fixed feature X.'
-        ]
-      },
-      {
-        version: '0.1-1',
-        distribution: 'unstable',
-        urgency: 'low',
-        date: '2016-12-23T11:24:00',
-        changes: [
-          'First release.'
-        ]
-      }
-    ],
-    _target: 'opt/demo',
-    _out: 'dist',
-    _verbose: true
-  }))
-})
+        section: 'base',
+        priority: 'optional',
+        architecture: 'i386',
+        maintainer: 'Mr. Apt <apt@nowhere.tld>',
+        description: 'A dummy package',
+        preinst: [ 'echo "hello from dummy package"' ],
+        postinst: [ 'cat -n /opt/demo/.npmignore' ],
+        changelog: [
+          {
+            version: '0.1-2',
+            distribution: 'unstable',
+            urgency: 'low',
+            date: new Date('2016-12-24T12:40:10'),
+            changes: [
+              'Added another feature.',
+              'Fixed feature X.'
+            ]
+          },
+          {
+            version: '0.1-1',
+            distribution: 'unstable',
+            urgency: 'low',
+            date: '2016-12-23T11:24:00',
+            changes: [
+              'First release.'
+            ]
+          }
+        ],
+        _target: 'opt/demo',
+        _out: 'dist',
+        _verbose: true
+      }));
+}
+
+gulp.task('default', gulp.parallel(createDebTask));
 ```
 
 Alternatively, you can define your package in an external [JSON file](demo_0.1-2_i386.json):
 
 ```js
-gulp.task('default', function () {
-  return gulp.src(['demo.sh', 'blob.bin'])
-  .pipe(deb('demo_0.1-2_i386.json'))
-})
+function task() {
+    return gulp.src(['demo.sh', 'blob.bin'])
+      .pipe(deb('demo_0.1-2_i386.json'));
+}
 ```
 
 You can also use a YAML file to define your package. Just convert it to an Object first using
@@ -76,10 +74,10 @@ the [js-yaml](https://github.com/nodeca/js-yaml) module (`npm install --save js-
 const YAML = require('js-yaml')
 const fs = require('fs')
 
-gulp.task('default', function () {
-  return gulp.src(['demo.sh', 'blob.bin'])
-  .pipe(deb(YAML.load(fs.readFileSync('demo_0.1-2_i386.yml').toString())))
-})
+function task() {
+     return gulp.src(['demo.sh', 'blob.bin'])
+      .pipe(deb(YAML.load(fs.readFileSync('demo_0.1-2_i386.yml').toString())));
+}
 ```
 
 ##### Options
@@ -103,9 +101,10 @@ gulp.task('default', function () {
 
 ##### Contributors
 
-* [Sam Saint-Pettersen](https://github.com/stpettersens)
-* [Oliver Skånberg-Tippen](https://github.com/oskanberg)
-* [Olaf Radicke](https://github.com/OlafRadicke)
+* [Malindu Warapitiya](https://github.com/stpettersens)
+
+##### Original Repo
+* [gulp-debian](https://github.com/stpettersens/gulp-debian)
 
 
 ##### License
