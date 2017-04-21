@@ -1,0 +1,14 @@
+notifications:
+  email: false
+
+sudo: required
+language: node_js
+node_js:
+  - '6.2'
+  - '5.1'
+
+before_script:
+  - npm run json2yaml
+
+after_script:
+  - npm run dpkg-install

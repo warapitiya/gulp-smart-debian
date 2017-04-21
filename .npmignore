@@ -1,0 +1,10 @@
+dist/
+test/
+node_modules/
+.gitattributes
+.gitignore
+.npmignore
+*.yml
+gulpfile.js
+json2yaml.js
+demo_0.1-2_i386.json
